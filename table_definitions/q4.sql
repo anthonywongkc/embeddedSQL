@@ -31,25 +31,22 @@ FROM party p
 -- the answer to the query 
 --INSERT INTO q4 
 INSERT into q4 
-Select p.countryName, count(*) as r0_2, Null as r2_4, Null as r4_6, Null as r6_8
-FROM parties_and_policy p
-WHERE  0 <= p.left_right  and p.left_right < 2
-Group by p.countryName
-
-INSERT into q4 
-Select p.countryName, Null as r0_2, count(*) as r2_4, Null as r4_6, Null as r6_8
-FROM parties_and_policy p
-WHERE  2 <= p.left_right  and p.left_right < 4
-Group by p.countryName
-
-INSERT into q4 
-Select p.countryName, Null as r0_2, Null as r2_4, count(*) as r4_6, Null as r6_8
-FROM parties_and_policy p
-WHERE  4 <= p.left_right  and p.left_right < 6
-Group by p.countryName
-
-INSERT into q4 
-Select p.countryName, Null as r0_2, Null as r2_4, Null as r4_6, count(*) as r6_8
-FROM parties_and_policy p
-WHERE  6 <= p.left_right  and p.left_right < 8
-Group by p.countryName 
+SELECT t1.countryName, t1.r0_2, t2.r2_4, t3.r4_6, t4.r6_8
+FROM
+	(Select p.countryName, count(*) as r0_2, Null as r2_4, Null as r4_6, Null as r6_8
+	FROM parties_and_policy p
+	WHERE  0 <= p.left_right  and p.left_right < 2
+	Group by p.countryName) t1, 
+	(Select p.countryName, Null as r0_2, count(*) as r2_4, Null as r4_6, Null as r6_8
+	FROM parties_and_policy p
+	WHERE  2 <= p.left_right  and p.left_right < 4
+	Group by p.countryName)t2,
+	(Select p.countryName, Null as r0_2, Null as r2_4, count(*) as r4_6, Null as r6_8
+	FROM parties_and_policy p
+	WHERE  4 <= p.left_right  and p.left_right < 6
+	Group by p.countryName) t3,
+	(Select p.countryName, Null as r0_2, Null as r2_4, Null as r4_6, count(*) as r6_8
+	FROM parties_and_policy p
+	WHERE  6 <= p.left_right  and p.left_right < 8
+	Group by p.countryName) t4
+	WHERE t1.countryName = t2.countryName and t3.countryName = t4.countryName and t1.countryName = t3.countryName;

@@ -24,25 +24,25 @@ DROP VIEW IF EXISTS full_party_info CASCADE;
 -- All parties and their elections
 CREATE VIEW parties_and_elections AS (
 	SELECT c.name as country_name, c.id as country_id, p.name as party_name, p.id as party_id,
-    		 er.election_id, er.seats,e_date as election_date
+    		 er.election_id, er.votes,e_date as election_date
     FROM country c, party p, election e, election_result er
     WHERE c.id = p.country_id and  e.id = er.election_id and p.id = er.party_id
 );  
 
 -- Every winning party
 CREATE VIEW winning_parties as (
-	SELECT party_name, party_id, seats, election_id, country_name, country_id, election_date
+	SELECT party_name, party_id, votes, election_id, country_name, country_id, election_date
     FROM  parties_and_elections p
-    WHERE p.seats = (select max(p2.seats)
+    WHERE p.votes = (select max(p2.votes)
                     from parties_and_elections p2
                     where p.election_id = p2.election_id)
 ); 
 
 -- Full information for every winning party
 Create View full_party_info as (
-    SELECT wins, wins.party_name,wins.party_id, winners_recent_id.election_id as most_recent, least_recent , country_name, country_id
+    SELECT wins, wins.party_name,wins.party_id, winners_recent_id.election_id as most_recent_id, most_recent_date , country_name, country_id
     FROM
-       (SELECT count(*) as wins, party_name,party_id,  min(election_date) as least_recent , country_name, country_id
+       (SELECT count(*) as wins, party_name,party_id,  max(election_date) as most_recent_date , country_name, country_id
         FROM winning_parties
         GROUP BY party_name, party_id,country_name, country_id ) wins,
        (SELECT party_name, election_id
@@ -62,7 +62,7 @@ Create View full_party_info as (
 
 insert into q2 
 (SELECT country_name as countryName, party_name as partyName, party_family.family as partyFamily, 
-		wins as wonElections, most_recent as mostRecentlyWonElectionId, date_part('year',least_recent) as mostRecentlyWonElectionYear
+		wins as wonElections, most_recent_id as mostRecentlyWonElectionId, date_part('year',most_recent_date) as mostRecentlyWonElectionYear
 FROM
       (SELECT *
           FROM full_party_info

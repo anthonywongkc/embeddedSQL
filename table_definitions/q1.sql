@@ -54,32 +54,32 @@ group by countryName, partyName, year;
 
 -- the answer to the query 
 insert into q1 (year, countryName, voteRange, partyName)
-select year, countryName, '(0,5]', partyName 
+select year, countryName, '(0-5]', partyName 
 from intermediate_step
 where percentage > 0 and percentage <= 5;
 
 insert into q1 (year, countryName, voteRange, partyName)
-select year, countryName, '(5,10]', partyName 
+select year, countryName, '(5-10]', partyName 
 from intermediate_step
 where percentage > 5 and percentage <= 10;
 
 insert into q1 (year, countryName, voteRange, partyName)
-select year, countryName, '(10,20]', partyName 
+select year, countryName, '(10-20]', partyName 
 from intermediate_step
 where percentage > 10 and percentage <= 20;
 
 insert into q1 (year, countryName, voteRange, partyName)
-select year, countryName, '(20,30]', partyName 
+select year, countryName, '(20-30]', partyName 
 from intermediate_step
 where percentage > 20 and percentage <= 30;
 
 insert into q1 (year, countryName, voteRange, partyName)
-select year, countryName, '(30,40]', partyName 
+select year, countryName, '(30-40]', partyName 
 from intermediate_step
 where percentage > 30 and percentage <= 40;
 
 insert into q1 (year, countryName, voteRange, partyName)
-select year, countryName, '(40,100]', partyName 
+select year, countryName, '(40-100]', partyName 
 from intermediate_step
 where percentage > 40 and percentage <= 100;
 

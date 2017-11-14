@@ -11,7 +11,7 @@ import java.util.List;
 //import java.util.HashSet;
 public class Assignment2 extends JDBCSubmission {
 
-	public Connection conn;;
+	public Connection conn;
 
     public Assignment2() throws ClassNotFoundException {
 
@@ -65,18 +65,37 @@ public class Assignment2 extends JDBCSubmission {
     public static void main(String[] args) {
         // You can put testing code in here. It will not affect our autotester.
         System.out.println("Hello");
-   
+		PreparedStatement pStatement;
+        ResultSet rs;
+        String queryString;   
 		String url =  "jdbc:postgresql://localhost:5432/csc343h-lewilli1";
 		String name = "lewilli1";	
 		String password = "";
+		Assignment2 a2; 
 		try {
-			Assignment2 a2 = new Assignment2();
+			a2 = new Assignment2();
 			System.out.println(a2.connectDB(url, name, password));
-     		System.out.println(a2.disconnectDB());
-		   }
+			try {
+  			  //some testing
+              queryString = "select* from party";
+              PreparedStatement ps = a2.conn.prepareStatement(queryString);
+              rs = ps.executeQuery();
+              while (rs.next()) {
+                  System.out.println(rs.getString("name"));
+              }
+          	}
+          catch (SQLException se) {
+                System.err.println("SQL Exception." +
+                    "<Message>: " + se.getMessage());
+          }		
+
+		}
         catch (ClassNotFoundException e) {
 			System.out.println("Failed to find the JDBC driver");
 	 	}
+
+
+
 
 	}
 }

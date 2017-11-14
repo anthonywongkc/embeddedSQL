@@ -14,13 +14,25 @@ public class Assignment2 extends JDBCSubmission {
     public Assignment2() throws ClassNotFoundException {
 
         Class.forName("org.postgresql.Driver");
-    }
+   	
+	 }
 
     @Override
     public boolean connectDB(String url, String username, String password) {
         // Implement this method!
-        return false;
-    }
+    	Connection conn;
+		try {
+			conn = DriverManager.getConnection(url, username, password);
+		
+		}
+		catch (SQLException se) {
+			System.err.println("SQL Exception." +
+					 "<Message>: " + se.getMessage());
+			return false;
+		}
+
+		return true;
+	}
 
     @Override
     public boolean disconnectDB() {
@@ -43,7 +55,13 @@ public class Assignment2 extends JDBCSubmission {
     public static void main(String[] args) {
         // You can put testing code in here. It will not affect our autotester.
         System.out.println("Hello");
-    }
+   
+	 	try {
+			Class.forName("org.postgresql.Driver");
+        }
+        catch (ClassNotFoundException e) {
+			System.out.println("Failed to find the JDBC driver");
+	 	}
 
 }
 

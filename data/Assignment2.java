@@ -4,14 +4,14 @@ import java.util.List;
 // If you are looking for Java data structures, these are highly useful.
 // Remember that an important part of your mark is for doing as much in SQL (not Java) as you can.
 // Solutions that use only or mostly Java will not receive a high mark.
-//import java.util.ArrayList;
+import java.util.ArrayList;
 //import java.util.Map;
 //import java.util.HashMap;
 //import java.util.Set;
 //import java.util.HashSet;
 public class Assignment2 extends JDBCSubmission {
 
-	public Connection conn;
+//	public Connection connection;
 
     public Assignment2() throws ClassNotFoundException {
 
@@ -24,7 +24,7 @@ public class Assignment2 extends JDBCSubmission {
         // Implement this method!
     	//Connection conn;
 		try {
-			conn = DriverManager.getConnection(url, username, password);
+			super.connection = DriverManager.getConnection(url, username, password);
 		
 		}
 		catch (SQLException se) {
@@ -40,7 +40,7 @@ public class Assignment2 extends JDBCSubmission {
     public boolean disconnectDB() {
         // Implement this method!
         try {
-			conn.close();
+			super.connection.close();
 			return true;
     	}
 		catch (SQLException se) {
@@ -53,8 +53,16 @@ public class Assignment2 extends JDBCSubmission {
     @Override
     public ElectionCabinetResult electionSequence(String countryName) {
         // Implement this method!
-        return null;
-    }
+		//just use arraylist for now
+		List<Integer> elections = new ArrayList<>();
+		List<Integer> cabinets = new ArrayList<>();
+
+    	JDBCSubmission.ElectionCabinetResult result = new JDBCSubmission.ElectionCabinetResult(elections, cabinets);
+		    
+		
+		return null;
+    
+	}
 
     @Override
     public List<Integer> findSimilarPoliticians(Integer politicianName, Float threshold) {
@@ -78,7 +86,7 @@ public class Assignment2 extends JDBCSubmission {
 			try {
   			  //some testing
               queryString = "select* from party";
-              PreparedStatement ps = a2.conn.prepareStatement(queryString);
+              PreparedStatement ps = a2.connection.prepareStatement(queryString);
               rs = ps.executeQuery();
               while (rs.next()) {
                   System.out.println(rs.getString("name"));

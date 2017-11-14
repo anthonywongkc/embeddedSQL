@@ -43,7 +43,7 @@ public class Assignment2 extends JDBCSubmission {
 			conn.close();
 			return true;
     	}
-		catch (SQLException e) {
+		catch (SQLException se) {
 			System.err.println("SQL Exception." +
 				"<Message>: " + se.getMessage());
 			return false;
@@ -72,7 +72,8 @@ public class Assignment2 extends JDBCSubmission {
 		try {
 			Assignment2 a2 = new Assignment2();
 			System.out.println(a2.connectDB(url, name, password));
-        }
+     		System.out.println(a2.disconnectDB());
+		   }
         catch (ClassNotFoundException e) {
 			System.out.println("Failed to find the JDBC driver");
 	 	}

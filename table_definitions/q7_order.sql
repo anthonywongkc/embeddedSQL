@@ -1,2 +1,2 @@
 select * from q7
-ORDER BY countryId desc, alliedparty1 desc, alliedparty2 desc;
+ORDER BY countryId desc, alliedPartyId1 desc, alliedPartyId2 desc;

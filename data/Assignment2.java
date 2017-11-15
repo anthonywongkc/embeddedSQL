@@ -23,9 +23,12 @@ public class Assignment2 extends JDBCSubmission {
     public boolean connectDB(String url, String username, String password) {
         // Implement this method!
     	//Connection conn;
+ 		String queryString;
+		queryString = "SET SEARCH_PATH to parlgov;";
 		try {
 			super.connection = DriverManager.getConnection(url, username, password);
-		
+			PreparedStatement ps = super.connection.prepareStatement(queryString);
+            ps.executeUpdate();
 		}
 		catch (SQLException se) {
 			System.err.println("SQL Exception." +

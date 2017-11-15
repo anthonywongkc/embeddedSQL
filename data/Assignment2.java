@@ -167,7 +167,9 @@ public class Assignment2 extends JDBCSubmission {
 			System.out.println(a2.connectDB(url, name, password));
 	//		try {
   			  //some testing
-            	a2.electionSequence("Canada");  
+//            	a2.electionSequence("Canada");  
+
+
 			// queryString = "select* from party";
               //PreparedStatement ps = a2.connection.prepareStatement(queryString);
               //rs = ps.executeQuery();

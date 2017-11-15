@@ -53,15 +53,92 @@ public class Assignment2 extends JDBCSubmission {
     @Override
     public ElectionCabinetResult electionSequence(String countryName) {
         // Implement this method!
+	 	String queryString0, queryString1, queryString2, queryString3,queryString4,queryString5;
+		PreparedStatement pStatement;		    
+		ResultSet rs;
 		//just use arraylist for now
 		List<Integer> elections = new ArrayList<>();
 		List<Integer> cabinets = new ArrayList<>();
 
     	JDBCSubmission.ElectionCabinetResult result = new JDBCSubmission.ElectionCabinetResult(elections, cabinets);
-		    
+		queryString0 = "DROP VIEW IF EXISTS all_elections CASCADE;"+
+						"DROP VIEW IF EXISTS all_cabinets CASCADE;"+
+						"DROP VIEW IF EXISTS p_elections CASCADE;"+
+						"DROP VIEW IF EXISTS e_elections CASCADE;";
+		queryString1 = "Create View all_elections as (" +
+						"SELECT c.name as countryName, c.id as countryId, e.id as electionId, e_date as electionDate," +
+						"e.e_type as eType, e.previous_parliament_election_id, e.previous_ep_election_id" +  
+						"FROM election e, country c" +
+						"WHERE e.country_id = c.id and c.name = ?);";
+		queryString2 = "Create View all_cabinets as (" +
+						"SELECT c2.name as countryName, c2.id as countryId, c1.start_date as startDate," +
+						" c1.previous_cabinet_id, c1.election_id, c1.id as cabinetId" +
+						"FROM cabinet c1, country c2" +
+						"WHERE c1.country_id = c2.id" +
+						"ORDER BY startDate desc);";
+		queryString3 = "Create view p_elections as (" +
+						"SELECT ae1.countryName, ae1.countryId, ae1.electionId,  ae1.electionDate, ae1.eType,"+
+						" ae2.previous_parliament_election_id as previousId, ae2.eType as nextType, ae2.electionDate as nextDate"+  
+						"FROM all_elections ae1 left join all_elections ae2 on ae2.previous_parliament_election_id = ae1.electionId and ae2.eType = ae1.eType"+
+						"WHERE ae1.eType = 'Parliamentary election');";
+		queryString4 = "Create view e_elections as (" +
+						"SELECT ae1.countryName, ae1.countryId, ae1.electionId,  ae1.electionDate, ae1.eType,"+ 
+						"ae2.previous_ep_election_id as previousId, ae2.eType as nexttype, ae2.electionDate  as nextdate"+
+						"FROM all_elections ae1 left join all_elections ae2 on ae2.previous_ep_election_id = ae1.electionId and ae2.eType = ae1.eType"+
+						"WHERE ae1.eType = 'European Parliament');"; 
+		queryString5 = "Select * FROM" +
+						"("+	
+
+						"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
+						"FROM"+
+						"(Select *" + 
+						"from p_elections"+
+						"Where nextDate is not null)a  left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate)"+
+
+						"union"+
+						"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
+						"FROM"+
+						"(Select *"+
+						"from p_elections"+
+						"Where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate )"+
+	
+						"union"+
+
+						"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
+						"FROM"+
+						"(Select *"+
+						"from e_elections"+
+						"where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate"+ 
+
+						"union" +
+
+						"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
+						"FROM"+
+						"(Select *"+
+						"from e_elections"+
+						"where nextDate is not null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate"+
+
+						")result";
+ 		
+		try {
+			PreparedStatement ps = super.connection.prepareStatement(queryString0 + queryString1+queryString2+queryString3+queryString4+queryString5);	
+			ps.setString(1, countryName);
+ 			rs = ps.executeQuery();
 		
-		return null;
-    
+		
+			//get back stuff from execution	
+			 while (rs.next()) {
+				int election_id = rs.getInt("electionId");
+				int cabinet_id = rs.getInt("cabinetid"); //do i have to check for null?
+				result.elections.add(election_id);
+				result.cabinets.add(cabinet_id);
+			 }
+
+    	}
+		catch (SQLException se) {
+			//do something here
+		}
+		return result;
 	}
 
     @Override

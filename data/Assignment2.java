@@ -56,11 +56,11 @@ public class Assignment2 extends JDBCSubmission {
 	@Override
 	public ElectionCabinetResult electionSequence(String countryName) {
         // Implement this method!
-<<<<<<< HEAD
+
 	 	String queryString0, queryString1, queryString2, queryString3,queryString4,queryString5, queryString6;
-=======
-		String queryString0, queryString1, queryString2, queryString3,queryString4,queryString5;
->>>>>>> 79ae11dc477e7b490c19ee450406fd176d370989
+
+
+
 		ResultSet rs;
 		
 		List<Integer> elections = new ArrayList<>();
@@ -69,16 +69,11 @@ public class Assignment2 extends JDBCSubmission {
 		JDBCSubmission.ElectionCabinetResult result = new JDBCSubmission.ElectionCabinetResult(elections, cabinets);
 		
 		queryString0 = "DROP VIEW IF EXISTS all_elections CASCADE;\n"+
-<<<<<<< HEAD
 						"DROP VIEW IF EXISTS all_cabinets CASCADE;\n"+
 						"DROP VIEW IF EXISTS p_elections CASCADE;\n"+
 						"DROP VIEW IF EXISTS e_elections CASCADE;\n"+
-						"DROP VIEW IF EXISTS answer CASCADE;\n";;
-=======
-		"DROP VIEW IF EXISTS all_cabinets CASCADE;\n"+
-		"DROP VIEW IF EXISTS p_elections CASCADE;\n"+
-		"DROP VIEW IF EXISTS e_elections CASCADE;\n";
->>>>>>> 79ae11dc477e7b490c19ee450406fd176d370989
+						"DROP VIEW IF EXISTS answer CASCADE;\n";
+
 		queryString1 = "Create View all_elections as (\n" +
 		"SELECT c.name as countryName, c.id as countryId, e.id as electionId, e_date as electionDate,\n" +
 		"e.e_type as eType, e.previous_parliament_election_id, e.previous_ep_election_id\n" +  
@@ -91,7 +86,6 @@ public class Assignment2 extends JDBCSubmission {
 		"WHERE c1.country_id = c2.id\n" +
 		"ORDER BY startDate desc);\n";
 		queryString3 = "Create view p_elections as (\n" +
-<<<<<<< HEAD
 						"SELECT DISTINCT ON ( r.electionId) r.electionid, r.countryName, r.countryId, r.electionDate, r.eType, r.previousid, r.nextType, r.nextDate\n"+
 						"FROM\n" + 
 						"(Select ae1.countryName, ae1.countryId, ae1.electionId,  ae1.electionDate, ae1.eType, ae2.previous_parliament_election_id as previousId, "+
@@ -147,52 +141,8 @@ public class Assignment2 extends JDBCSubmission {
 						")result  Order By result.electionDate desc);";
 			 queryString6 = "select * from ((select * from answer) except (select * from answer where cabinetId is null))b WHERE countryName = ? ORDER BY electionDate desc ;";
 
-//		System.out.println(queryString4);
-=======
-		"SELECT ae1.countryName, ae1.countryId, ae1.electionId,  ae1.electionDate, ae1.eType,\n"+
-		" ae2.previous_parliament_election_id as previousId, ae2.eType as nextType, ae2.electionDate as nextDate\n"+  
-		"FROM all_elections ae1 left join all_elections ae2 on ae2.previous_parliament_election_id = ae1.electionId and ae2.eType = ae1.eType\n"+
-		"WHERE ae1.eType = 'Parliamentary election');\n";
-		queryString4 = "Create view e_elections as (\n" +
-		"SELECT ae1.countryName, ae1.countryId, ae1.electionId,  ae1.electionDate, ae1.eType,\n"+ 
-		"ae2.previous_ep_election_id as previousId, ae2.eType as nexttype, ae2.electionDate  as nextdate\n"+
-		"FROM all_elections ae1 left join all_elections ae2 on ae2.previous_ep_election_id = ae1.electionId and ae2.eType = ae1.eType\n"+
-		"WHERE ae1.eType = 'European Parliament');\n"; 
-		queryString5 = "Select * FROM\n" +
-		"(\n"+	
 
-		"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
-		"FROM\n"+
-		"(Select *\n" + 
-		"from p_elections\n"+
-		"Where nextDate is not null)a  left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate)\n"+
 
-		"union\n"+
-		"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
-		"FROM\n"+
-		"(Select *\n"+
-		"from p_elections\n"+
-		"Where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate )\n"+
-
-		"union\n"+
-
-		"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
-		"FROM\n"+
-		"(Select *\n"+
-		"from e_elections\n"+
-		"where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate\n"+ 
-
-		"union\n" +
-
-		"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
-		"FROM\n"+
-		"(Select *\n"+
-		"from e_elections\n"+
-		"where nextDate is not null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate\n"+
-
-		")result WHERE result.countryName = ? Order By result.electionDate desc;";
-// 		System.out.println(queryString5);
->>>>>>> 79ae11dc477e7b490c19ee450406fd176d370989
 //		queryString6 = queryString0+queryString1+queryString2+queryString3+queryString4+queryString5;
 //		System.out.println(queryString6);
 		try {
@@ -202,27 +152,22 @@ public class Assignment2 extends JDBCSubmission {
 			PreparedStatement ps1 = super.connection.prepareStatement(queryString1);		
 			ps1.executeUpdate();
 			PreparedStatement ps2 = super.connection.prepareStatement(queryString2); 
-<<<<<<< HEAD
+
  			ps2.executeUpdate();
-=======
-			ps2.executeUpdate();
->>>>>>> 79ae11dc477e7b490c19ee450406fd176d370989
+
 			PreparedStatement ps3 = super.connection.prepareStatement(queryString3); 
 			ps3.executeUpdate();
 			PreparedStatement ps4 = super.connection.prepareStatement(queryString4); 
 			ps4.executeUpdate();
 			PreparedStatement ps5 = super.connection.prepareStatement(queryString5); 
-<<<<<<< HEAD
+
 			ps5.executeUpdate();
 
 			PreparedStatement ps6 = super.connection.prepareStatement(queryString6);
   			ps6.setString(1, String.valueOf(countryName));
 			rs = ps6.executeQuery();
-=======
-			ps5.setString(1, String.valueOf(countryName));
-			rs = ps5.executeQuery();
 
->>>>>>> 79ae11dc477e7b490c19ee450406fd176d370989
+
 			//get back stuff from execution	
 			while (rs.next()) {
 				//System.out.println("got inside");
@@ -241,9 +186,9 @@ public class Assignment2 extends JDBCSubmission {
 			System.err.println("SQL Exception." +
 				"<Message>: " + se.getMessage());
 		}
-//		System.out.println(result.toString());
-//		System.out.println("length "+ result.elections.size() + "\n");
-//		System.out.println("length "+ result.cabinets.size() + "\n");
+		System.out.println(result.toString());
+		System.out.println("length "+ result.elections.size() + "\n");
+		System.out.println("length "+ result.cabinets.size() + "\n");
 
 		
 		return result;
@@ -307,14 +252,11 @@ public class Assignment2 extends JDBCSubmission {
 			System.out.println(a2.connectDB(url, name, password));
 //			try {
   			  //some testing
-<<<<<<< HEAD
-            	a2.electionSequence("Canada");  
-=======
+            a2.electionSequence("Canada");  
             	// a2.electionSequence("Japan");
 			float similar = 0;
 			a2.findSimilarPoliticians(9,similar);
->>>>>>> 79ae11dc477e7b490c19ee450406fd176d370989
-
+		
 
 			// queryString = "select* from party";
               //PreparedStatement ps = a2.connection.prepareStatement(queryString);

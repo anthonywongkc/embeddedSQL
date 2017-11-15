@@ -86,50 +86,52 @@ public class Assignment2 extends JDBCSubmission {
 						"ae2.previous_ep_election_id as previousId, ae2.eType as nexttype, ae2.electionDate  as nextdate"+
 						"FROM all_elections ae1 left join all_elections ae2 on ae2.previous_ep_election_id = ae1.electionId and ae2.eType = ae1.eType"+
 						"WHERE ae1.eType = 'European Parliament');"; 
-		queryString5 = "Select * FROM" +
-						"("+	
+		queryString5 = "Select * FROM\n" +
+						"(\n"+	
 
-						"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
-						"FROM"+
-						"(Select *" + 
-						"from p_elections"+
-						"Where nextDate is not null)a  left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate)"+
+						"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
+						"FROM\n"+
+						"(Select *\n" + 
+						"from p_elections\n"+
+						"Where nextDate is not null)a  left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate)\n"+
 
-						"union"+
-						"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
-						"FROM"+
-						"(Select *"+
-						"from p_elections"+
-						"Where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate )"+
+						"union\n"+
+						"(SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
+						"FROM\n"+
+						"(Select *\n"+
+						"from p_elections\n"+
+						"Where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate )\n"+
 	
-						"union"+
+						"union\n"+
 
-						"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
-						"FROM"+
-						"(Select *"+
-						"from e_elections"+
-						"where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate"+ 
+						"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
+						"FROM\n"+
+						"(Select *\n"+
+						"from e_elections\n"+
+						"where nextDate is null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate\n"+ 
 
-						"union" +
+						"union\n" +
 
-						"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate"+
-						"FROM"+
-						"(Select *"+
-						"from e_elections"+
-						"where nextDate is not null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate"+
+						"SELECT a.countryName, a.electionId, a.eType, a.electionDate, a.nextDate, a.previousId, ap.cabinetId, ap.startDate\n"+
+						"FROM\n"+
+						"(Select *\n"+
+						"from e_elections\n"+
+						"where nextDate is not null)a left join all_cabinets ap on a.countryName = ap.countryName and ap.startDate >= a.electionDate and  a.nextDate > ap.startDate\n"+
 
 						")result";
- 		
+ 		System.out.println(queryString5);
 		try {
-			PreparedStatement ps = super.connection.prepareStatement(queryString0 + queryString1+queryString2+queryString3+queryString4+queryString5);	
-			ps.setString(1, countryName);
+			PreparedStatement ps = super.connection.prepareStatement(queryString5);	
+//			ps.setString(1, countryName);
  			rs = ps.executeQuery();
 		
 		
 			//get back stuff from execution	
 			 while (rs.next()) {
+				System.out.println("got inside");
 				int election_id = rs.getInt("electionId");
 				int cabinet_id = rs.getInt("cabinetid"); //do i have to check for null?
+				System.out.println(election_id);
 				result.elections.add(election_id);
 				result.cabinets.add(cabinet_id);
 			 }
@@ -137,7 +139,10 @@ public class Assignment2 extends JDBCSubmission {
     	}
 		catch (SQLException se) {
 			//do something here
+			 System.err.println("SQL Exception." +
+				"<Message>: " + se.getMessage());
 		}
+		System.out.println(result.toString());
 		return result;
 	}
 
@@ -160,19 +165,20 @@ public class Assignment2 extends JDBCSubmission {
 		try {
 			a2 = new Assignment2();
 			System.out.println(a2.connectDB(url, name, password));
-			try {
+	//		try {
   			  //some testing
-              queryString = "select* from party";
-              PreparedStatement ps = a2.connection.prepareStatement(queryString);
-              rs = ps.executeQuery();
-              while (rs.next()) {
-                  System.out.println(rs.getString("name"));
-              }
-          	}
-          catch (SQLException se) {
-                System.err.println("SQL Exception." +
-                    "<Message>: " + se.getMessage());
-          }		
+            	a2.electionSequence("Canada");  
+			// queryString = "select* from party";
+              //PreparedStatement ps = a2.connection.prepareStatement(queryString);
+              //rs = ps.executeQuery();
+             // while (rs.next()) {
+              //    System.out.println(rs.getString("name"));
+             // }
+      //    	}
+         // catch (SQLException se) {
+           //     System.err.println("SQL Exception." +
+             //       "<Message>: " + se.getMessage());
+          //}		
 
 		}
         catch (ClassNotFoundException e) {

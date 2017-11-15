@@ -158,9 +158,9 @@ public class Assignment2 extends JDBCSubmission {
 			 System.err.println("SQL Exception." +
 				"<Message>: " + se.getMessage());
 		}
-		System.out.println(result.toString());
-		System.out.println("length "+ result.elections.size() + "\n");
-		System.out.println("length "+ result.cabinets.size() + "\n");
+//		System.out.println(result.toString());
+//		System.out.println("length "+ result.elections.size() + "\n");
+//		System.out.println("length "+ result.cabinets.size() + "\n");
 		return result;
 	}
 

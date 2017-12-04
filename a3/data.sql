@@ -1,4 +1,4 @@
--- The data of our schema
+-- The data of our schema -> ONLY EXAMPLE DATA
 -- Insert our students
 INSERT INTO student (id, first_name, last_name) VALUES 
     (0998801234,"Lena", "Headey"),
@@ -21,13 +21,13 @@ INSERT INTO class (id, sid, room_id, grade) VALUES
     (3, 5555555555, "room 120", 8),
     (4, 1111111111, "room 120", 8), 
     (5, 2222222222, "room 366", 5)
-
--- CLASS ID CANNOT BE REPEATED
+--Is this redudant?
 
 --Insert our quiz
 Insert INTO quiz (id, title, due_date, hint__flag, class_id) VALUES 
     ("Pr1-220310", "Citizenship Test Practise Questions", '1997-12-17 07:37:16.00 PST', True);
-    --1997-12-17 07:37:16.00 PST Wed Dec 17 07:37:16 1997 PST
+    -- 1997-12-17 07:37:16.00 PST Wed Dec 17 07:37:16 1997 PST
+   
     --CURRENTLY quiz id is int -> change to var char
 
 INSERT INTO question (id, description)  VALUES 
@@ -55,7 +55,7 @@ INSERT INTO numeric_choice (question_id, answer, upper_bound, lower_bound) VALUE
     (601, "1960", 1900, 1800), 
     (601, "1960", 2000, 2010), 
     (601, "1960", 2020, 3000);
-    -- may need to abstract away hints since they will also require a text
+    -- may need to abstract away hints since they will also require a text!
     -- also the repeat in answer is redundant?
     -- perhaps into a numeric_hint
 
@@ -68,7 +68,7 @@ INSERT INTO hint (question_id, hint) VALUES
     (625, "Hint: The TTC is relatively recent; the Underground Railroad was 
            in operation over 100 years ago.");
     -- multiple choice hints are associated with specific answers
-    -- we could add a reference to the multiple_choice relation
+    -- we could add a reference to the multiple_choice relation??
 
 INSERT INTO true_false (question_id, answer) VALUES
     (566, "The Prime Minister, Justin Trudeau, is Canada's Head of State.
@@ -104,14 +104,14 @@ INSERT INTO student_response_MC (student_id, question_id, response) VALUES
     (0998801234, 625, "A network used by slaves who escaped the United States into Canada"), 
     (0010784522, 625,"A network used by slaves who escaped the United States into Canada" ), 
     (0997733991, 625, "The CPR's secret railway line" );
-   -- (5555555555, 625,  ),  NO reponse given
+    -- (5555555555, 625,  ),  NO reponse given
     -- (1111111111, did not respond
 
 INSERT INTO student_response_NUM (student_id, question_id, response) VALUES
     (0998801234, 601, 1950), 
     (0010784522, 601,1960 ), 
     (0997733991, 601, 1960), 
-   -- (5555555555, 601,  ); no responce given
+    -- (5555555555, 601,  ); no responce given
     --(1111111111, did not respond
 
 

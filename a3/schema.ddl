@@ -9,10 +9,10 @@ SET SEARCH_PATH to quizschema;
 
 -- a student 
 CREATE TABLE student(
-  id BIGSERIAL PRIMARY KEY, --constraint it is a 10 digit number  
+  id VARCHAR(10) PRIMARY KEY, --constraint it is a 10 digit number  
   first_name VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
-  check(id<=9999999999)
+  check(length(id) = 10)
 );
 
 --same room and same teacher-> what if its a split class?
@@ -27,7 +27,7 @@ CREATE TABLE room(
 
 CREATE TABLE class(
     id INT PRIMARY KEY,
-	sid BIGSERIAL REFERENCES student(id),
+	sid VARCHAR(10) REFERENCES student(id),
     room_id VARCHAR(50) REFERENCES room(id),
     grade INT NOT NULL
     -- foreign key (room_id, teacher_id) references Class
@@ -93,28 +93,28 @@ CREATE TABLE question_and_quiz(
 
 --student assigned to a quiz
 CREATE TABLE student_assigned_quiz(
-    id BIGSERIAL PRIMARY KEY,
+    id VARCHAR(10) PRIMARY KEY,
     class_id INT REFERENCES class(id),
     quiz_id VARCHAR(50) REFERENCES quiz(id)
 );
 
 CREATE TABLE student_response_TF(
     quiz_id VARCHAR REFERENCES quiz(id),
-    student_id BIGSERIAL REFERENCES student(id),
+    student_id VARCHAR(10) REFERENCES student(id),
     question_id INT REFERENCES question(id),
     response BOOLEAN
 );
 
 CREATE TABLE student_response_MC(
     quiz_id VARCHAR REFERENCES quiz(id),
-    student_id BIGSERIAL REFERENCES student(id),
+    student_id VARCHAR(10) REFERENCES student(id),
     question_id INT REFERENCES question(id),
     response VARCHAR(1000)
 );
 
 CREATE TABLE student_response_NUM(
     quiz_id VARCHAR REFERENCES quiz(id),
-    student_id BIGSERIAL REFERENCES student(id),
+    student_id VARCHAR(10) REFERENCES student(id),
     question_id INT REFERENCES question(id),
     response INT
 );

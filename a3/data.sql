@@ -1,12 +1,12 @@
 -- The data of our schema -> ONLY EXAMPLE DATA
 -- Insert our students
 INSERT INTO student (id, first_name, last_name) VALUES 
-    (0998801234, 'Lena', 'Headey'),
-    (0010784522, 'Peter', 'Dinklage'),
-    (0997733991, 'Emilia', 'Clarke'),
-    (5555555555, 'Kit', 'Harrington'), 
-    (1111111111, 'Sophie',  'Turner'), 
-    (2222222222, 'Maisie', 'Williams');
+    ('0998801234', 'Lena', 'Headey'),
+    ('0010784522', 'Peter', 'Dinklage'),
+    ('0997733991', 'Emilia', 'Clarke'),
+    ('5555555555', 'Kit', 'Harrington'), 
+    ('1111111111', 'Sophie',  'Turner'), 
+    ('2222222222', 'Maisie', 'Williams');
 
 INSERT INTO room (id, teacher_name) VALUES
     ('room 120','Mr Higgins'), 
@@ -15,12 +15,12 @@ INSERT INTO room (id, teacher_name) VALUES
 
 -- --Insert our class
 INSERT INTO class (id, sid, room_id, grade) VALUES
-    (0, 0998801234, 'room 120', 8), 
-    (1, 0010784522, 'room 120', 8),
-    (2, 0997733991, 'room 120', 8),
-    (3, 5555555555, 'room 120', 8),
-    (4, 1111111111, 'room 120', 8), 
-    (5, 2222222222, 'room 366', 5);
+    (0, '0998801234', 'room 120', 8), 
+    (1, '0010784522', 'room 120', 8),
+    (2, '0997733991', 'room 120', 8),
+    (3, '5555555555', 'room 120', 8),
+    (4, '1111111111', 'room 120', 8), 
+    (5, '2222222222', 'room 366', 5);
 --Is this redudant?
 
 --Insert our quiz
@@ -92,28 +92,28 @@ INSERT INTO student_assigned_quiz (id, class_id, quiz_id) VALUES
     (4, 4, 'Pr1-220310');
 
 INSERT INTO student_response_TF (quiz_id, student_id, question_id, response) VALUES
-    ('Pr1-220310', 0998801234, 566, False), 
-    ('Pr1-220310', 0010784522, 566, False), 
-    ('Pr1-220310', 0997733991, 566, True), 
-    ('Pr1-220310', 5555555555, 566, False);
+    ('Pr1-220310', '0998801234', 566, False), 
+    ('Pr1-220310', '0010784522', 566, False), 
+    ('Pr1-220310', '0997733991', 566, True), 
+    ('Pr1-220310', '5555555555', 566, False);
     --(1111111111,566,  ) did not answer
 
 
 INSERT INTO student_response_MC (quiz_id, student_id, question_id, response) VALUES
-    ('Pr1-220310', 0998801234, 782, 'They expanded their defence system, including Fort York'), 
-    ('Pr1-220310', 0010784522, 782, 'They burned down the White House in Washington D.C.' ), 
-    ('Pr1-220310', 0997733991, 782, 'They burned down the White House in Washington D.C.' ), 
-    ('Pr1-220310', 5555555555, 782, 'They captured Niagara Falls' ),  
-    ('Pr1-220310', 0998801234, 625, 'A network used by slaves who escaped the United States into Canada'), 
-    ('Pr1-220310', 0010784522, 625, 'A network used by slaves who escaped the United States into Canada' ), 
-    ('Pr1-220310', 0997733991, 625, 'The CPR''s secret railway line' );
+    ('Pr1-220310', '0998801234', 782, 'They expanded their defence system, including Fort York'), 
+    ('Pr1-220310', '0010784522', 782, 'They burned down the White House in Washington D.C.' ), 
+    ('Pr1-220310', '0997733991', 782, 'They burned down the White House in Washington D.C.' ), 
+    ('Pr1-220310', '5555555555', 782, 'They captured Niagara Falls' ),  
+    ('Pr1-220310', '0998801234', 625, 'A network used by slaves who escaped the United States into Canada'), 
+    ('Pr1-220310', '0010784522', 625, 'A network used by slaves who escaped the United States into Canada' ), 
+    ('Pr1-220310', '0997733991', 625, 'The CPR''s secret railway line' );
     -- (5555555555, 625,  ),  NO reponse given
     -- (1111111111, did not respond
 
 INSERT INTO student_response_NUM (quiz_id, student_id, question_id, response) VALUES
-    ('Pr1-220310', 0998801234, 601, 1950), 
-    ('Pr1-220310', 0010784522, 601,1960 ), 
-    ('Pr1-220310', 0997733991, 601, 1960);
+    ('Pr1-220310', '0998801234', 601, 1950), 
+    ('Pr1-220310', '0010784522', 601,1960 ), 
+    ('Pr1-220310', '0997733991', 601, 1960);
     -- (5555555555, 601,  ); no responce given
     --(1111111111, did not respond
 

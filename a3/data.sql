@@ -99,11 +99,11 @@ INSERT INTO student_response_TF (quiz_student_id, question_id, response) VALUES
     (4, 566, null);
 
 INSERT INTO student_response_MC (quiz_student_id, question_id, response) VALUES
-    (0, 782, 'They expanded their defence system, including Fort York'), 
-    (1, 782, 'They burned down the White House in Washington D.C.' ), 
-    (2, 782, 'They burned down the White House in Washington D.C.' ), 
-    (3, 782, 'They captured Niagara Falls' ),
-    (4, 782, null),
+    (0, 790, 'They expanded their defence system, including Fort York'), 
+    (1, 790, 'They burned down the White House in Washington D.C.' ), 
+    (2, 790, 'They burned down the White House in Washington D.C.' ), 
+    (3, 790, 'They captured Niagara Falls' ),
+    (4, 790, null),
     (0, 625, 'A network used by slaves who escaped the United States into Canada'), 
     (1, 625, 'A network used by slaves who escaped the United States into Canada' ), 
     (2, 625, 'The CPR''s secret railway line' ),

@@ -51,3 +51,7 @@ INSERT INTO q4
 SELECT n.sid AS student_id, n.qid AS question_id, q.description AS question_text
 FROM no_response_num n JOIN question q ON n.qid = q.id;
 
+SELECT *
+FROM q4
+ORDER BY student_id;
+

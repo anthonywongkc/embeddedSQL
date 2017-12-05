@@ -74,7 +74,7 @@ from MC_quiz_response t where t.response = t.answer;
 
 
 
-select student_id, last_name, sum(question_mark)
+select student_id, last_name, sum(question_mark) as total_marks
 from q3
 group by student_id,last_name;
 

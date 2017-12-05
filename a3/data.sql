@@ -8,13 +8,13 @@ INSERT INTO student (id, first_name, last_name) VALUES
     ('1111111111', 'Sophie',  'Turner'), 
     ('2222222222', 'Maisie', 'Williams');
 
-INSERT INTO room (id, teacher_name) VALUES
+INSERT INTO class (id, teacher_name) VALUES
     ('room 120','Mr Higgins'), 
     ('room 366', 'Miss Nyers');
 
 
 -- --Insert our class
-INSERT INTO class (id, sid, room_id, grade) VALUES
+INSERT INTO inClass (id, sid, room_id, grade) VALUES
     (0, '0998801234', 'room 120', 8), 
     (1, '0010784522', 'room 120', 8),
     (2, '0997733991', 'room 120', 8),
@@ -25,7 +25,7 @@ INSERT INTO class (id, sid, room_id, grade) VALUES
 
 --Insert our quiz
 Insert INTO quiz (id, title, due_date, hint_flag) VALUES 
-    ('Pr1-220310', 'Citizenship Test Practise Questions', '1997-12-17 07:37:16.00 PST', True);
+    ('Pr1-220310', 'Citizenship Test Practise Questions', '2017-10-01 13:30:00.00 PST', True);
     -- 1997-12-17 07:37:16.00 PST Wed Dec 17 07:37:16 1997 PST
 
 INSERT INTO question (id, description)  VALUES 
@@ -91,32 +91,31 @@ INSERT INTO student_assigned_quiz (id, class_id, quiz_id) VALUES
     (3, 3, 'Pr1-220310'),  
     (4, 4, 'Pr1-220310');
 
-INSERT INTO student_response_TF (quiz_id, student_id, question_id, response) VALUES
-    ('Pr1-220310', '0998801234', 566, False), 
-    ('Pr1-220310', '0010784522', 566, False), 
-    ('Pr1-220310', '0997733991', 566, True), 
-    ('Pr1-220310', '5555555555', 566, False);
-    --(1111111111,566,  ) did not answer
+INSERT INTO student_response_TF (quiz_student_id, question_id, response) VALUES
+    (0, 566, False), 
+    (1, 566, False), 
+    (2, 566, True), 
+    (3, 566, False),
+    (4, 566, null);
 
+INSERT INTO student_response_MC (quiz_student_id, question_id, response) VALUES
+    (0, 782, 'They expanded their defence system, including Fort York'), 
+    (1, 782, 'They burned down the White House in Washington D.C.' ), 
+    (2, 782, 'They burned down the White House in Washington D.C.' ), 
+    (3, 782, 'They captured Niagara Falls' ),
+    (4, 782, null),
+    (0, 625, 'A network used by slaves who escaped the United States into Canada'), 
+    (1, 625, 'A network used by slaves who escaped the United States into Canada' ), 
+    (2, 625, 'The CPR''s secret railway line' ),
+    (3, 625, null),
+    (4, 625, null);
 
-INSERT INTO student_response_MC (quiz_id, student_id, question_id, response) VALUES
-    ('Pr1-220310', '0998801234', 782, 'They expanded their defence system, including Fort York'), 
-    ('Pr1-220310', '0010784522', 782, 'They burned down the White House in Washington D.C.' ), 
-    ('Pr1-220310', '0997733991', 782, 'They burned down the White House in Washington D.C.' ), 
-    ('Pr1-220310', '5555555555', 782, 'They captured Niagara Falls' ),  
-    ('Pr1-220310', '0998801234', 625, 'A network used by slaves who escaped the United States into Canada'), 
-    ('Pr1-220310', '0010784522', 625, 'A network used by slaves who escaped the United States into Canada' ), 
-    ('Pr1-220310', '0997733991', 625, 'The CPR''s secret railway line' );
-    -- (5555555555, 625,  ),  NO reponse given
-    -- (1111111111, did not respond
-
-INSERT INTO student_response_NUM (quiz_id, student_id, question_id, response) VALUES
-    ('Pr1-220310', '0998801234', 601, 1950), 
-    ('Pr1-220310', '0010784522', 601,1960 ), 
-    ('Pr1-220310', '0997733991', 601, 1960);
-    -- (5555555555, 601,  ); no responce given
-    --(1111111111, did not respond
-
+INSERT INTO student_response_NUM (quiz_student_id, question_id, response) VALUES
+    (0, 601, 1950), 
+    (1, 601, 1960), 
+    (2, 601, 1960),
+    (3, 601, null),
+    (4, 601, null);
 
 
 

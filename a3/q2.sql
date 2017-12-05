@@ -1,8 +1,6 @@
 SET SEARCH_PATH to quizschema;
 DROP TABLE if exists q2 cascade;
 
--- You must not change this table definition.
-
 CREATE TABLE q2(
 question_id INT,
 question_text VARCHAR(1000),
@@ -10,7 +8,6 @@ numOfHints INT
 );
 
 -- You may find it convenient to do this for each of the views
--- that define your intermediate steps.  (But give them better names!)
 DROP VIEW IF EXISTS question_tf CASCADE;
 DROP VIEW IF EXISTS question_mc CASCADE;
 DROP VIEW IF EXISTS question_num CASCADE;
@@ -41,3 +38,7 @@ FROM question_mc;
 INSERT INTO q2
 SELECT *
 FROM question_num;
+
+DROP VIEW IF EXISTS question_tf CASCADE;
+DROP VIEW IF EXISTS question_mc CASCADE;
+DROP VIEW IF EXISTS question_num CASCADE;

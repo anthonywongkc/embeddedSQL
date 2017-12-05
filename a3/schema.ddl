@@ -18,17 +18,17 @@ CREATE TABLE student(
 --same room and same teacher-> what if its a split class?
 --would give us error, since it has the same room and same teacher
 --and that should be distinct
-CREATE TABLE room(
+CREATE TABLE class(
     -- id of the room the class is located in
     id VARCHAR(50) PRIMARY KEY,
     -- the name of the teacher
     teacher_name VARCHAR(50) NOT NULL UNIQUE
 );
 
-CREATE TABLE class(
+CREATE TABLE inClass(
     id INT PRIMARY KEY,
 	sid VARCHAR(10) REFERENCES student(id),
-    room_id VARCHAR(50) REFERENCES room(id),
+    room_id VARCHAR(50) REFERENCES class(id),
     grade INT NOT NULL
     -- foreign key (room_id, teacher_id) references Class
 );
@@ -41,7 +41,6 @@ CREATE TABLE quiz(
     title VARCHAR(50) NOT NULL, 
     due_date DATE NOT NULL,
     hint_flag BOOLEAN
-    -- class_id INT REFERENCES class(id)
 );
 
 CREATE TABLE question(
@@ -93,28 +92,25 @@ CREATE TABLE question_and_quiz(
 
 --student assigned to a quiz
 CREATE TABLE student_assigned_quiz(
-    id VARCHAR(10) PRIMARY KEY,
-    class_id INT REFERENCES class(id),
+    id INT PRIMARY KEY,
+    class_id INT REFERENCES inClass(id),
     quiz_id VARCHAR(50) REFERENCES quiz(id)
 );
 
 CREATE TABLE student_response_TF(
-    quiz_id VARCHAR REFERENCES quiz(id),
-    student_id VARCHAR(10) REFERENCES student(id),
+    quiz_student_id INT REFERENCES student_assigned_quiz(id),
     question_id INT REFERENCES question(id),
     response BOOLEAN
 );
 
 CREATE TABLE student_response_MC(
-    quiz_id VARCHAR REFERENCES quiz(id),
-    student_id VARCHAR(10) REFERENCES student(id),
+    quiz_student_id INT REFERENCES student_assigned_quiz(id),
     question_id INT REFERENCES question(id),
     response VARCHAR(1000)
 );
 
 CREATE TABLE student_response_NUM(
-    quiz_id VARCHAR REFERENCES quiz(id),
-    student_id VARCHAR(10) REFERENCES student(id),
+    quiz_student_id INT REFERENCES student_assigned_quiz(id),
     question_id INT REFERENCES question(id),
     response INT
 );

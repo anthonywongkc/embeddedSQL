@@ -38,7 +38,3 @@ FROM question_mc;
 INSERT INTO q2
 SELECT *
 FROM question_num;
-
-DROP VIEW IF EXISTS question_tf CASCADE;
-DROP VIEW IF EXISTS question_mc CASCADE;
-DROP VIEW IF EXISTS question_num CASCADE;

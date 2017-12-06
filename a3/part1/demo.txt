@@ -1,0 +1,219 @@
+csc343h-lewilli1=> \i runner.txt 
+-- Loading schema and data:
+psql:schema.ddl:1: NOTICE:  drop cascades to 33 other objects
+DETAIL:  drop cascades to table student
+drop cascades to table class
+drop cascades to table inclass
+drop cascades to table quiz
+drop cascades to table question
+drop cascades to table true_false
+drop cascades to table multiple_choice_opt
+drop cascades to table multiple_choice
+drop cascades to table hint_mc
+drop cascades to table numeric_choice
+drop cascades to table hint_num
+drop cascades to table question_and_quiz
+drop cascades to table student_assigned_quiz
+drop cascades to table student_response_tf
+drop cascades to table student_response_mc
+drop cascades to table student_response_num
+drop cascades to table q2
+drop cascades to view question_tf
+drop cascades to view question_mc
+drop cascades to view question_num
+drop cascades to table q3
+drop cascades to table q4
+drop cascades to view classinfo
+drop cascades to view requestedquiz
+drop cascades to view no_response_tf
+drop cascades to view no_response_mc
+drop cascades to view no_response_num
+drop cascades to view in_higgens_8
+drop cascades to view quiz_questions
+drop cascades to view tf_quiz_response
+drop cascades to view num_quiz_response
+drop cascades to view mc_quiz_response
+drop cascades to table q5
+DROP SCHEMA
+CREATE SCHEMA
+SET
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+INSERT 0 6
+INSERT 0 2
+INSERT 0 6
+INSERT 0 1
+INSERT 0 5
+INSERT 0 1
+INSERT 0 12
+INSERT 0 3
+INSERT 0 4
+INSERT 0 1
+INSERT 0 3
+INSERT 0 4
+INSERT 0 5
+INSERT 0 5
+INSERT 0 10
+INSERT 0 5
+-- Query 1:
+SET
+    full_name    | student_number 
+-----------------+----------------
+ Lena Headey     | 0998801234
+ Peter Dinklage  | 0010784522
+ Emilia Clarke   | 0997733991
+ Kit Harrington  | 5555555555
+ Sophie Turner   | 1111111111
+ Maisie Williams | 2222222222
+(6 rows)
+
+-- Query 2:
+SET
+psql:q2.sql:2: NOTICE:  table "q2" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+psql:q2.sql:11: NOTICE:  view "question_tf" does not exist, skipping
+DROP VIEW
+psql:q2.sql:12: NOTICE:  view "question_mc" does not exist, skipping
+DROP VIEW
+psql:q2.sql:13: NOTICE:  view "question_num" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+INSERT 0 1
+INSERT 0 2
+INSERT 0 1
+ question_id |                                    question_text                                     | numofhints 
+-------------+--------------------------------------------------------------------------------------+------------
+         566 | The Prime Minister, Justin Trudeau, is Canada's Head of State.                       |           
+         601 | During the 'Quiet Revolution,' Quebec experienced rapid change. In what             +|          3
+             |            decade did this occur? (Enter the year that began the decade, e.g., 1840. | 
+         625 | What is the Underground Railroad?                                                    |          3
+         782 | What do you promise when you take the oath of citizenship?                           |          1
+(4 rows)
+
+-- Query 3:
+SET
+psql:q3.sql:9: NOTICE:  table "q3" does not exist, skipping
+DROP TABLE
+psql:q3.sql:10: NOTICE:  view "in_higgens_8" does not exist, skipping
+DROP VIEW
+psql:q3.sql:11: NOTICE:  view "quiz_questions" does not exist, skipping
+DROP VIEW
+psql:q3.sql:12: NOTICE:  view "tf_quiz_response" does not exist, skipping
+DROP VIEW
+psql:q3.sql:13: NOTICE:  view "num_quiz_response" does not exist, skipping
+DROP VIEW
+psql:q3.sql:14: NOTICE:  view "mc_quiz_response" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE TABLE
+INSERT 0 5
+INSERT 0 3
+INSERT 0 2
+INSERT 0 4
+ student_id | last_name  | total_marks 
+------------+------------+-------------
+ 0997733991 | Clarke     |           5
+ 0010784522 | Dinklage   |           8
+ 5555555555 | Harrington |           1
+ 0998801234 | Headey     |           3
+ 1111111111 | Turner     |           0
+(5 rows)
+
+-- Query 4:
+SET
+psql:q4.sql:2: NOTICE:  table "q4" does not exist, skipping
+DROP TABLE
+CREATE TABLE
+psql:q4.sql:11: NOTICE:  view "classinfo" does not exist, skipping
+DROP VIEW
+psql:q4.sql:12: NOTICE:  view "requestedquiz" does not exist, skipping
+DROP VIEW
+psql:q4.sql:13: NOTICE:  view "no_response_tf" does not exist, skipping
+DROP VIEW
+psql:q4.sql:14: NOTICE:  view "no_response_mc" does not exist, skipping
+DROP VIEW
+psql:q4.sql:15: NOTICE:  view "no_response_num" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+INSERT 0 1
+INSERT 0 3
+INSERT 0 2
+ student_id | question_id |                                    question_text                                     
+------------+-------------+--------------------------------------------------------------------------------------
+ 1111111111 |         566 | The Prime Minister, Justin Trudeau, is Canada's Head of State.
+ 1111111111 |         790 | During the War of 1812 the Americans burned down the Parliament Buildings in        +
+            |             |            York (now Toronto). What did the British and Canadians do in return?
+ 1111111111 |         625 | What is the Underground Railroad?
+ 1111111111 |         601 | During the 'Quiet Revolution,' Quebec experienced rapid change. In what             +
+            |             |            decade did this occur? (Enter the year that began the decade, e.g., 1840.
+ 5555555555 |         625 | What is the Underground Railroad?
+ 5555555555 |         601 | During the 'Quiet Revolution,' Quebec experienced rapid change. In what             +
+            |             |            decade did this occur? (Enter the year that began the decade, e.g., 1840.
+(6 rows)
+
+-- Query 5:
+SET
+psql:q5.sql:4: NOTICE:  table "q5" does not exist, skipping
+DROP TABLE
+psql:q5.sql:5: NOTICE:  drop cascades to 3 other objects
+DETAIL:  drop cascades to view tf_quiz_response
+drop cascades to view num_quiz_response
+drop cascades to view mc_quiz_response
+DROP VIEW
+DROP VIEW
+psql:q5.sql:7: NOTICE:  view "tf_quiz_response" does not exist, skipping
+DROP VIEW
+psql:q5.sql:8: NOTICE:  view "num_quiz_response" does not exist, skipping
+DROP VIEW
+psql:q5.sql:9: NOTICE:  view "mc_quiz_response" does not exist, skipping
+DROP VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE VIEW
+CREATE TABLE
+INSERT 0 4
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 2
+INSERT 0 2
+INSERT 0 2
+ question_id | answered_correctly | answered_incorrectly | did_not_answer 
+-------------+--------------------+----------------------+----------------
+         566 |                  3 |                    1 |              1
+         601 |                  2 |                    1 |              2
+         625 |                  2 |                    1 |              2
+         790 |                  2 |                    2 |              1
+(4 rows)
+
+

@@ -3,14 +3,27 @@ CREATE SCHEMA quizschema;
 SET SEARCH_PATH to quizschema;
 
 -- 1.What Constraints from the domain could not be enforced?
+
 -- Cardniality Constraints, such as always having at least two answers 
 -- for a multiple choice question. These type of constraints are very
--- difficult to accomplish without using complicated subqueries
--- It is not possible to do this using only foreign keys.
+-- difficult to accomplish in sql without using complicated subqueries
+-- It is not possible to do without subqueries or functions.
+-- We could have has two foreign keys, but a multiple choice question could have MORE then 2 answers.
 
 -- 2. What constraints that could have been enforced were not enforced? why not? 
+-- Similar to above the constraint split classes was ambiguous. we could have defined it to be 
+-- strictly one or two and had direct attributes for them in class, but this would have resulted in nulls
+-- for any class with only one grade (which we assume would be most of them). Instead we put the grade with
+-- the intermediate relation inclass meaning it is tied to a class/student combination. This meant that technically
+-- a class could contain more then one grade.
 
-
+-- Another constraint was that correct answers cannot have a hint associated with them.
+-- With our implementation correct and incorrect answers are both in the same relation:
+-- the multiple_choice_opt relation. While the Multiple_choice relation can distinguish the correct 
+-- answer with its foreign key, since correct and incorrect have the same relation, correct answers can
+-- also be associated with a hint. We chose not to enforce this since we already had many levels to our scheme
+-- ie. Question -> Multiple_choice -> multiple_choice_opt -> hint_mc
+-- adding relations for correct and incorrect answers would have added to the complexity 
 
 
 -- a student 

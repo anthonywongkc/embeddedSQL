@@ -2,9 +2,15 @@ DROP SCHEMA if EXISTS quizschema CASCADE;
 CREATE SCHEMA quizschema;
 SET SEARCH_PATH to quizschema;
 
+-- 1.What Constraints from the domain could not be enforced?
+-- Cardniality Constraints, such as always having at least two answers 
+-- for a multiple choice question. These type of constraints are very
+-- difficult to accomplish without using complicated subqueries
+-- It is not possible to do this using only foreign keys.
 
---CREATE TYPE question_type AS ENUM(
-  --    'true-false', 'multiple choice', 'numeric');
+-- 2. What constraints that could have been enforced were not enforced? why not? 
+
+
 
 
 -- a student 
@@ -115,17 +121,6 @@ CREATE TABLE student_response_NUM(
     response INT
 );
 
--- --this would have some nulls
--- CREATE TABLE student_response(
---     --student_id INT REFERENCES student(id),
---     foreign key (student_id,quiz_id) REFERENCES student_assigned_quiz,
---     foreign key (question_id, quiz_id, weight) REFERENCES question,
---     -- note this implementation will give nulls
---     foreign key (question_id, answer) REFERENCES multiple_choice,
---     foreign key (question_id, answer) REFERENCES numeric_question,
---     foreign key (question_id, answer) REFERENCES true_false
-
--- );
 
 
 

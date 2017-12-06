@@ -25,6 +25,10 @@ SET SEARCH_PATH to quizschema;
 -- ie. Question -> Multiple_choice -> multiple_choice_opt -> hint_mc
 -- adding relations for correct and incorrect answers would have added to the complexity 
 
+-- The next constraint was the numerical hint, and the upper and lower bound. In our implementation
+-- the hint for numerical questions is seperate from the answer which is contained with the question.
+-- We could have enforced this, but would have required a foreign key inside hint_num to the numerical question
+-- AND the base question. We chose to implement it only needing a foreign key to the base question relation.
 
 -- a student 
 CREATE TABLE student(

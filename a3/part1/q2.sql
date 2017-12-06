@@ -38,3 +38,7 @@ FROM question_mc;
 INSERT INTO q2
 SELECT *
 FROM question_num;
+
+SELECT *
+FROM q2
+ORDER BY question_id;

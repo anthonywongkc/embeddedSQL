@@ -1,0 +1,248 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{multirow}
+\title{A3 part 2}
+
+\begin{document}
+
+\noindent
+University of Toronto\\
+{\sc csc}343, Fall 2017\\[10pt]
+{\LARGE\bf Assignment 3 Part 2: Anthony, William} \\[10pt]
+
+%----------------------------------------------------------------------------------------------------------------------
+\renewcommand{\labelenumiii}{\arabic{enumiii}}
+\begin{enumerate}
+
+\item % ---------- q1
+
+\item % ---------- q2
+\begin{enumerate}
+\item % ---------- q2a
+Compute a minimal basis for T. In your final answer, put the FDs into alphabetical order.
+
+\begin{itemize}
+\item % ----------
+We'll simplify to singleton right-hand sides and call this set S1:
+\begin{enumerate} 
+\item AB $\rightarrow$ C
+\item AB $\rightarrow$ D
+\item ACDE $\rightarrow$ B
+\item ACDE $\rightarrow$ F
+\item B $\rightarrow$ A
+\item B $\rightarrow$ C
+\item B $\rightarrow$ D
+\item CD $\rightarrow$ A
+\item CD $\rightarrow$ F
+\item CDE $\rightarrow$ F
+\item CDE $\rightarrow$ G
+\item EB $\rightarrow$ D
+\end{enumerate}
+
+\item % ----------
+We'll look for redundant FDs to eliminate.
+\begin{table}[h!]
+\centering
+\begin{tabular}{ p{0.5cm} | p{4cm} | p{8cm} | p{2cm} } 
+ FD & Exclude these from S1 when computing closure & Closure & Decision \\ [0.5ex] 
+ \hline
+ 1 & 1 & AB+ = ABDCF & discard \\ 
+ \hline
+ 2 & 1, 2 & AB+ = ABCDF & discard \\
+ \hline
+ 3 & 1, 2, 3 & There's no way to get B without this FD & keep \\
+ \hline
+ 4 & 1, 2, 4 & ACDE+ = ACDEFG & discard \\
+ \hline
+ 5 & 1, 2, 4, 5 & B+ = BCDAF & discard \\
+  \hline
+ 6 & 1, 2, 4, 5, 6 & There's no way to get C without this FD & keep \\
+  \hline
+ 7 & 1, 2, 4, 5, 7 & B+ = BC & keep \\
+  \hline
+ 8 & 1, 2, 4, 5, 8 & There's no way to get A without this FD & keep \\
+  \hline
+ 9 & 1, 2, 4, 5, 9 & CD+ = CDA & keep \\
+  \hline
+ 10 & 1, 2, 4, 5, 10 & CDE+ = CDEGAFB & discard \\
+  \hline
+ 11 & 1, 2, 4, 5, 10, 11 & There's no way to get G without this FD & keep \\
+  \hline
+ 12 & 1, 2, 4, 5, 10, 12 & EB+ = EBCDAFG & discard \\
+\end{tabular}
+\end{table}
+
+\item % ----------
+Let's call the remaining FDs S2:
+\begin{enumerate} 
+\item[3] ACDE $\rightarrow$ B
+\item[6] B $\rightarrow$ C
+\item[7] B $\rightarrow$ D
+\item[8] CD $\rightarrow$ A
+\item[9] CD $\rightarrow$ F
+\item[11] CDE $\rightarrow$ G
+\end{enumerate}
+
+\item % ----------
+Let's try reducing the LHS
+\begin{enumerate} 
+\item[3] ACDE $\rightarrow$ B \\
+A+ = A so we can't reduce the LHS to A. \\
+C+ = C so we can't reduce the LHS to C. \\
+D+ = D so we can't reduce the LHS to D. \\
+E+ = E so we can't reduce the LHS to E. \\
+AC+ = AC so we can't reduce the LHS to AC. \\
+AD+ = AD so we can't reduce the LHS to AD. \\
+AE+ = AE so we can't reduce the LHS to AE. \\
+CD+ = CDA . . . so we can reduce the LHS to CD. 
+\item[8] CD $\rightarrow$ A \\
+C+ = C so we can't reduce the LHS to C. \\
+D+ = D so we can't reduce the LHS to D. \\
+So this FD remains as it is
+\item[9] CD $\rightarrow$ F \\
+C+ = C so we can't reduce the LHS to C. \\
+D+ = D so we can't reduce the LHS to D. \\
+So this FD remains as it is
+\item[11] CDE $\rightarrow$ G
+C+ = C so we can't reduce the LHS to C. \\
+D+ = D so we can't reduce the LHS to D. \\
+E+ = E so we can't reduce the LHS to E. \\
+So this FD remains as it is
+\end{enumerate}
+
+\item % ----------
+Let's call the set of FDs that we have after reducing left-hand sides S3:
+\begin{enumerate} 
+\item[3'] CDE $\rightarrow$ B
+\item[6] B $\rightarrow$ C
+\item[7] B $\rightarrow$ D
+\item[8] CD $\rightarrow$ A
+\item[9] CD $\rightarrow$ F
+\item[11] CDE $\rightarrow$ G
+\end{enumerate}
+
+\item % ----------
+Look again in case any of the changes we made allow further simplification.
+\begin{table}[h!]
+\centering
+\begin{tabular}{ p{0.5cm} | p{4cm} | p{8cm} | p{2cm} } 
+ FD & Exclude these from S1 when computing closure & Closure & Decision \\ [0.5ex] 
+ \hline
+ 3' & 3' & There's no way to get B without this FD & keep \\
+  \hline
+ 6 & 6 & There's no way to get C without this FD & keep \\
+  \hline
+ 7 & 7 & There's no way to get D without this FD & keep \\
+  \hline
+ 8 & 8 & There's no way to get A without this FD & keep \\
+  \hline
+ 9 & 9 & There's no way to get F without this FD& keep \\
+  \hline
+ 11 & 11 & There's no way to get G without this FD & keep \\
+\end{tabular}
+\end{table}
+
+\item % ----------
+No further simplifications are possible.
+
+\item % ----------
+So the following set S4 is a minimal basis:
+\begin{enumerate} 
+\item B $\rightarrow$ C
+\item B $\rightarrow$ D
+\item CD $\rightarrow$ A
+\item CD $\rightarrow$ F
+\item CDE $\rightarrow$ B
+\item CDE $\rightarrow$ G
+\end{enumerate}
+\end{itemize}
+
+\newpage
+\item % ---------- q2b
+Using your minimal basis from the last subquestion, compute all keys for P.
+
+\begin{itemize}
+\item % ----------
+To summarize, each attrtibutes in P:
+\begin{table}[h!]
+\centering
+\begin{tabular}{ c | c | c | c } 
+\hline
+\multirow{2}{*}{Attribute} & \multicolumn{2}{c|}{Appears on} & \multirow{2}{*}{Conclusion} \\
+\cline{2-3}
+& LHS & RHS \\ [0.5ex] 
+\hline
+H & - & - & must be in every key \\
+\hline
+E & $\surd$ & - & must be in every key \\
+\hline
+A, F, G & - & $\surd$ & is not in any key \\
+\hline
+B, C, D & $\surd$ & $\surd$ & must chek \\
+\hline
+\end{tabular}
+\end{table}
+
+\item % ----------
+Therefore, we only need to consider the combination of B, C, D\\
+BEH+ = BEHCDAFG. So BEH is a key.
+CEH+ = CEH. This is not a key
+DEH+ = DEH. This is not a key
+
+\item % ----------
+The keys for P are BEH
+\end{itemize}
+
+\item % ---------- q2c
+Employ the 3NF synthesis algorithm to obtain a lossless and dependency-preserving decomposition of
+relation P into a collection of relations that are in 3NF.
+
+ \begin{itemize}
+\item % ----------
+Let's call the revised FDs S5:
+\begin{enumerate} 
+\item B $\rightarrow$ CD
+\item CD $\rightarrow$ AF
+\item CDE $\rightarrow$ BG
+\end{enumerate}
+
+\item % ----------
+The set of relations that would result would have these attributes: \\
+R1(BCD), R2(ACDF), R3(BCDEG)
+
+\item % ----------
+Since the attributes BCD occur within R3, we don't need to keep the relation R1.
+
+\item % ----------
+BEH is a key of P which is not in the set of relations so we need to add another relation that includes a key. 
+
+\item % ----------
+So the final set of relations is: \\
+R2(ACDF), R3(BCDEG), R4(BEH)
+\end{itemize}
+
+\item % ----------
+Does your schema allow redundancy?
+
+\begin{itemize}
+\item % ----------
+We need to find out the projection of the FDs onto each relation to ensure the FDs do not violate BCNF and therefore redundancy is allowed.
+
+\item % ----------
+Clearly, CD $\rightarrow$ AF will project onto the relation R4 and it is not a superkey of this relation.
+
+\item % ----------
+So yes, these schema allows redundancy.
+\end{itemize}
+
+
+\end{enumerate}
+
+\end{enumerate}
+
+\end{document}
+
+
+

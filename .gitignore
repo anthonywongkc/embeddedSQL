@@ -1,3 +1,7 @@
 *.DS_store
 *.class
 *.sh
+*.aux
+*.log
+*.pdf
+*.gz

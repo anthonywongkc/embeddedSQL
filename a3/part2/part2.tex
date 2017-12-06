@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{fullpage}
 \usepackage{enumitem}
+\usepackage{array}
+\usepackage{multirow}
 \title{A3 part 2}
 
 \begin{document}
@@ -14,14 +16,14 @@ University of Toronto\\
 \renewcommand{\labelenumiii}{\arabic{enumiii}}
 \begin{enumerate}
 
-\item % ----------
+\item % ---------- q1
 
-\item % ----------
-\begin{enumerate} [leftmargin=0pt, itemindent=*]
-\item % ----------
+\item % ---------- q2
+\begin{enumerate}
+\item % ---------- q2a
 Compute a minimal basis for T. In your final answer, put the FDs into alphabetical order.
-\begin{itemize}
 
+\begin{itemize}
 \item % ----------
 We'll simplify to singleton right-hand sides and call this set S1:
 \begin{enumerate} 
@@ -155,8 +157,86 @@ So the following set S4 is a minimal basis:
 \item CDE $\rightarrow$ B
 \item CDE $\rightarrow$ G
 \end{enumerate}
-
 \end{itemize}
+
+\newpage
+\item % ---------- q2b
+Using your minimal basis from the last subquestion, compute all keys for P.
+
+\begin{itemize}
+\item % ----------
+To summarize, each attrtibutes in P:
+\begin{table}[h!]
+\centering
+\begin{tabular}{ c | c | c | c } 
+\hline
+\multirow{2}{*}{Attribute} & \multicolumn{2}{c|}{Appears on} & \multirow{2}{*}{Conclusion} \\
+\cline{2-3}
+& LHS & RHS \\ [0.5ex] 
+\hline
+H & - & - & must be in every key \\
+\hline
+E & $\surd$ & - & must be in every key \\
+\hline
+A, F, G & - & $\surd$ & is not in any key \\
+\hline
+B, C, D & $\surd$ & $\surd$ & must chek \\
+\hline
+\end{tabular}
+\end{table}
+
+\item % ----------
+Therefore, we only need to consider the combination of B, C, D\\
+BEH+ = BEHCDAFG. So BEH is a key.
+CEH+ = CEH. This is not a key
+DEH+ = DEH. This is not a key
+
+\item % ----------
+The keys for P are BEH
+\end{itemize}
+
+\item % ---------- q2c
+Employ the 3NF synthesis algorithm to obtain a lossless and dependency-preserving decomposition of
+relation P into a collection of relations that are in 3NF.
+
+ \begin{itemize}
+\item % ----------
+Let's call the revised FDs S5:
+\begin{enumerate} 
+\item B $\rightarrow$ CD
+\item CD $\rightarrow$ AF
+\item CDE $\rightarrow$ BG
+\end{enumerate}
+
+\item % ----------
+The set of relations that would result would have these attributes: \\
+R1(BCD), R2(ACDF), R3(BCDEG)
+
+\item % ----------
+Since the attributes BCD occur within R3, we don't need to keep the relation R1.
+
+\item % ----------
+BEH is a key of P which is not in the set of relations so we need to add another relation that includes a key. 
+
+\item % ----------
+So the final set of relations is: \\
+R2(ACDF), R3(BCDEG), R4(BEH)
+\end{itemize}
+
+\item % ----------
+Does your schema allow redundancy?
+
+\begin{itemize}
+\item % ----------
+We need to find out the projection of the FDs onto each relation to ensure the FDs do not violate BCNF and therefore redundancy is allowed.
+
+\item % ----------
+Clearly, CD $\rightarrow$ AF will project onto the relation R4 and it is not a superkey of this relation.
+
+\item % ----------
+So yes, these schema allows redundancy.
+\end{itemize}
+
 
 \end{enumerate}
 
